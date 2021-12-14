@@ -1,0 +1,30 @@
+# Production Build
+# Stage 1: Build react client on container
+# copies over client side project folder, installs dependencies, and runs command to build the production build
+FROM node:14.15.3-alpine as client
+WORKDIR /usr/app/client-tempy/
+COPY client/package*.json ./
+RUN npm install
+COPY client/ ./
+# build the production version of the client side React Web app (creates /usr/app/client-tempy/build)
+# this needs to use yarn instead of npm for it to work on windows :(
+RUN yarn build
+
+# Stage 2: seed the mongoDB database
+FROM mongo
+WORKDIR /usr/db
+COPY mongo/*.js /docker-entrypoint-initdb.d
+
+# Stage 3 : Build Express Server on container
+# copies over client side production build to /usr/src/client/build
+# copies over server side project folder to /usr/src/server and installs dependencies, etc.
+# final steps is to fire up the express server via "npm run start"
+FROM node:14.15.3-alpine as server
+WORKDIR /usr/src/app/
+COPY --from=client /usr/app/client-tempy/build/ ./client/build/
+WORKDIR /usr/src/app/server/
+COPY server/package*.json ./
+RUN npm install -qy
+COPY server/ ./
+EXPOSE 8080
+CMD ["npm", "start"]

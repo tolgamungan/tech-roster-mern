@@ -1,0 +1,30 @@
+@import "./../_globals";
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    text-align: left;
+    padding: 6px !important ;
+    font-size: 0.74rem !important;
+    }
+  button{
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  button:hover{
+      cursor: pointer;
+  }
+  .category-title{
+      font-size: large;
+      padding-left: 3px;
+      color: $accent-color;
+  }
+.border-left{
+    border-left: 6px solid $accent-color;
+}
+

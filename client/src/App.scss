@@ -1,0 +1,33 @@
+@import "./_globals";
+@import 'bootstrap/scss/bootstrap';
+.main {
+    height:100%;
+    a {
+        color:$text-color;
+        text-decoration: none; 
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.header,h4 {
+    @include display-flex();
+    flex-flow: row wrap;
+    align-items:center;
+    font-weight: bold;
+    font-size:20px;
+    padding-bottom:10px;
+
+    .header{ color: $text-color !important; }
+}
+div .footer a{ color: $accent-color; }
+.footer {
+    margin-top:40px;
+    margin-bottom:10px; 
+}
+
+
+
+
+

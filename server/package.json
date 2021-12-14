@@ -1,0 +1,25 @@
+{
+  "name": "tech-roster-mern",
+  "version": "0.1.0",
+  "private": true,
+  "main": "Server.js",
+  "scripts": {
+    "start": "nodemon src/Server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-sanitizer": "^1.0.6",
+    "mongodb": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.5"
+  },
+  "jshintConfig": {
+    "esversion": 8,
+    "strict": "implied",
+    "devel": true,
+    "node": true,
+    "globals": {}
+  }
+}

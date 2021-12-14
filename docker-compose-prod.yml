@@ -1,0 +1,46 @@
+# build image with: docker compose -f docker-compose-prod.yml build
+# run container with: docker compose -f docker-compose-prod.yml up
+# build and run with: docker compose -f docker-compose-prod.yml up --build
+
+# production docker-compose.yml
+version: '3.7'
+
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: production-server
+    container_name: my-production-server
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    build:
+      context: ./mongo
+      dockerfile: Dockerfile
+    image: mongo-server
+    container_name: my-mongo-server
+    volumes:
+      - data-volume:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: dbTechs
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    web-root:
+      driver: local
